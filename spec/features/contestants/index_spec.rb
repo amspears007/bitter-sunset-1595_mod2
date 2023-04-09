@@ -20,14 +20,27 @@ RSpec.describe 'contestant index', type: :feature do
       ContestantProject.create(contestant_id: gretchen.id, project_id: upholstery_tux.id)
       ContestantProject.create(contestant_id: erin.id, project_id: boardfit.id)
       visit '/contestants'
-      save_and_open_page
+        save_and_open_page
 
-      expect(page).to have_content("Jay McCarroll")
-      expect(page).to have_content("Gretchen Jones")
-      expect(page).to have_content("Erin Robertson")
-      expect(page).to have_content("News Chic")
-      expect(page).to have_content("Upholstery Tuxedo")
-      expect(page).to have_content("Boardfit")
+      within "#contestant_#{jay.id}" do
+        expect(page).to have_content("Jay McCarroll")
+        expect(page).to have_content("News Chic")
+        expect(page).to_not have_content("Gretchen Jones")
+        expect(page).to_not have_content("Boardfit")
+      end
+
+      within "#contestant_#{gretchen.id}" do
+        expect(page).to have_content("Gretchen Jones")
+        expect(page).to have_content("News Chic")
+        expect(page).to have_content("News Chic")
+        expect(page).to_not have_content("Boardfit")
+      end
+
+      within "#contestant_#{erin.id}" do
+        expect(page).to have_content("Erin Robertson")
+        expect(page).to have_content("Boardfit")
+        expect(page).to_not have_content("News Chic")
+      end
     end
   end
 end

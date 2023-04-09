@@ -1,7 +1,9 @@
 <h1> Contestants Index Page </h1>
 <% @contestants.each do |contestant| %>
+  <div id="contestant_<%= contestant.id %>">
 <h3><%= contestant.name %></p> </h3>
   <p><% contestant.projects.each do |project| %></p>
     <p> Projects: <%=project.name %> </p> 
   <% end %>
+  </div>
 <% end %>
